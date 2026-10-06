@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Emmanuel Nice - Software Developer & Graphic Designer">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Emmanuel Nice | Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --color-1: #de5e91;
+            --color-2: #efe6ea;
+            --color-3: #ffffff;
+            --text: #ffffff;
+            --muted: #999999;
+            --line: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            background-color: var(--color-1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+            mix-blend-mode: difference;
+            will-change: transform, width, height, opacity;
+            opacity: 1;
+        }
+
+        #custom-cursor.hovered {
+            width: 72px;
+            height: 72px;
+            background-color: var(--color-1);
+            opacity: 0.9;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-img-container {
+            overflow: hidden;
+        }
+
+        .hero-visual {
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(90deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.72) 35%, rgba(10, 10, 10, 0.58) 100%),
+                url('bnw-nen.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-visual::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(222, 94, 145, 0.28), transparent 34%);
+            pointer-events: none;
+        }
+
+        .project-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .project-img {
+            transform: scale(1.06);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--color-1);
+            outline-offset: 4px;
+        }
+
+        @media (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+
+            #custom-cursor {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#0a0a0a',
+                        primary: '#de5e91',
+                        secondary: '#ffffff',
+                        tertiary: '#ffffff',
+                        muted: '#999999',
+                        borderSubtle: '#222222',
+                        accent: '#f97171',
+                        surface: '#141617',
+                        'pink-accent': '#f180ac',
+                        'teal-accent': '#0dbab8',
+                        'violet-accent': '#a571f9'
+                    },
+                    fontSize: {
+                        mega: 'clamp(2.5rem, 8vw, 7.5rem)',
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="antialiased font-sans selection:bg-primary selection:text-background">
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 w-full z-50 p-6 md:px-12 flex justify-between items-center pointer-events-none backdrop-blur-md bg-background/60 border-b border-borderSubtle/40">
+        <a href="#top" class="font-bold tracking-widest uppercase pointer-events-auto interactive-element text-sm md:text-base text-tertiary transition-colors hover:text-primary">
+            EMMANUEL NICE 
+        </a>
+        <nav class="hidden md:flex items-center gap-8 pointer-events-auto interactive-element text-xs uppercase tracking-[0.2em] font-mono text-muted">
+            <a href="#about" class="transition-colors hover:text-primary">About</a>
+            <a href="#projects" class="transition-colors hover:text-primary">Work</a>
+            <a href="#contact" class="transition-colors hover:text-primary">Contact</a>
+        </nav>
+        <div class="font-mono text-xs md:text-sm text-primary uppercase pointer-events-auto interactive-element">
+            Based in Malawi
+        </div>
+    </header>
+
+    <main id="top" class="px-6 md:px-12">
+
+        <!-- Hero Section -->
+        <section class="hero-visual min-h-screen flex flex-col justify-center pt-28 pb-12 reveal px-6 md:px-12 rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+            <div class="relative z-10">
+                <div class="mb-8 inline-flex items-center gap-3 border border-borderSubtle bg-surface/80 rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.3em] text-secondary">
+                    <span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    Available for new opportunities
+                </div>
+                
+                <h1 class="text-mega font-black leading-[0.88] tracking-tighter uppercase mb-8 text-tertiary">
+                    <span class="block">Hi there,</span>
+                    <span class="block mt-2 text-primary text-[0.7em] tracking-[0.08em]">
+                        I'm Emmanuel Nice
+                    </span>
+                    <span class="block mt-2 text-[0.72em] text-secondary/90">
+                        Software Developer & Graphic Designer
+                    </span>
+                </h1>
+
+                <div class="flex flex-col md:flex-row md:items-center gap-6 mt-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-[2px] bg-primary"></div>
+                        <p class="font-mono text-secondary text-xs md:text-sm uppercase tracking-widest">Building intelligent & intuitive digital experiences.</p>
+                    </div>
+                    <div class="flex gap-4 md:ml-8">
+                        <a href="#projects" class="inline-flex items-center px-6 py-3 border border-primary bg-primary text-background text-xs font-mono font-bold uppercase tracking-[0.2em] transition-all hover:bg-transparent hover:text-primary">
+                            View my work
+                        </a>
+                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-borderSubtle text-tertiary text-xs font-mono uppercase tracking-[0.2em] transition-all hover:border-primary hover:text-primary">
+                            Get in touch
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-28 border-t border-borderSubtle reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-start">
+                <div>
+                    <p class="font-mono text-xs uppercase tracking-[0.3em] text-primary mb-6">About Me</p>
+                    <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-6 text-tertiary">
+                        Merging computer science precision with creative design.
+                    </h2>
+                    <p class="max-w-2xl text-muted text-base md:text-lg leading-relaxed">
+                        I am a full-stack developer, machine learning enthusiast, and creative designer. My expertise spans across intelligent application design, computer graphics, brand identity, and custom automation tools.
+                    </p>
+                </div>
+
+                <div class="grid gap-6">
+                    <div class="border border-borderSubtle rounded-xl p-6 bg-surface/70 backdrop-blur-sm">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-primary mb-3">Core Expertise</p>
+                        <p class="text-base font-medium text-tertiary">Full-Stack Engineering, Machine Learning (Phishing Detection), UI/UX Architecture, Graphic Design.</p>
+                    </div>
+                    <div class="border border-borderSubtle rounded-xl p-6 bg-surface/70 backdrop-blur-sm">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-primary mb-3">Philosophy</p>
+                        <p class="text-base font-medium text-tertiary">Designing robust, scalable technical solutions wrapped in clear visual visual communication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities Section -->
+        <section class="py-20 md:py-28 reveal border-t border-borderSubtle">
+            <div class="mb-12">
+                <p class="font-mono text-xs uppercase tracking-[0.3em] text-primary mb-2"> Capabilities</p>
+                <h2 class="text-3xl md:text-4xl font-bold uppercase tracking-tight text-tertiary">Technical & Creative Stack</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-borderSubtle rounded-xl p-8 bg-surface/80 backdrop-blur-sm transition-all hover:border-primary/50">
+                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">01</p>
+                    <h3 class="text-2xl font-bold uppercase tracking-tight mb-3 text-tertiary">Software Engineering</h3>
+                    <p class="text-muted leading-relaxed text-sm">Full-stack web development, Python (Flask), React, Spring Boot, Kotlin, and offline automation systems.</p>
+                </div>
+                <div class="border border-borderSubtle rounded-xl p-8 bg-surface/80 backdrop-blur-sm transition-all hover:border-primary/50">
+                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">02</p>
+                    <h3 class="text-2xl font-bold uppercase tracking-tight mb-3 text-tertiary">AI & Machine Learning</h3>
+                    <p class="text-muted leading-relaxed text-sm">Machine learning classification model development, cybersecurity phishing detection, and voice processing systems.</p>
+                </div>
+                <div class="border border-borderSubtle rounded-xl p-8 bg-surface/80 backdrop-blur-sm transition-all hover:border-primary/50">
+                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">03</p>
+                    <h3 class="text-2xl font-bold uppercase tracking-tight mb-3 text-tertiary">Brand & Visual Design</h3>
+                    <p class="text-muted leading-relaxed text-sm">Creative direction, modern visual identity systems, vector graphics, UI prototyping, and responsive web design.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 md:py-28 border-t border-borderSubtle">
+            <div class="reveal mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div>
+                    <p class="font-mono text-xs uppercase tracking-[0.3em] text-primary mb-2"> Portfolio</p>
+                    <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase text-tertiary">Featured Works.</h2>
+                </div>
+                <p class="font-mono text-muted text-xs md:text-sm uppercase">(04 Selected Projects)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+
+                <!-- Project 01 -->
+                <article class="group block interactive-element reveal">
+                    <div class="border border-borderSubtle rounded-xl overflow-hidden transition-all duration-500 group-hover:border-primary/60 bg-surface/70">
+                        <div class="project-img-container aspect-[4/3] bg-gradient-to-br from-background via-surface to-primary/20 relative">
+                            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#de5e91_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                            <div class="absolute inset-0 flex items-center justify-center project-img">
+                                <span class="font-mono text-primary/30 text-7xl md:text-8xl font-bold">01</span>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex justify-between items-start mb-4 border-b border-borderSubtle pb-4">
+                                <p class="font-mono text-[10px] text-primary uppercase tracking-[0.25em]">Creative Direction</p>
+                                <p class="font-mono text-[10px] text-muted uppercase tracking-[0.25em]">Design</p>
+                            </div>
+                            <h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-3 text-tertiary group-hover:translate-x-2 transition-transform duration-300">SADC Magazine</h3>
+                            <p class="text-muted font-mono text-xs md:text-sm leading-relaxed mb-6">
+                                The SADC Magazine (2025 Edition) is a flagship publication designed to showcase regional socio-economic growth, trade integration, and key development milestones across Southern African Development Community (SADC) member states..
+                            </p>
+                            <span class="inline-flex items-center text-xs uppercase tracking-[0.2em] font-mono text-primary border-b border-primary pb-1">View Details</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 02 -->
+                <article class="group block interactive-element reveal md:mt-24">
+                    <div class="border border-borderSubtle rounded-xl overflow-hidden transition-all duration-500 group-hover:border-primary/60 bg-surface/70">
+                        <div class="project-img-container aspect-[4/3] bg-gradient-to-tr from-background via-surface to-teal-accent/20 relative">
+                            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#24d5b4_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                            <div class="absolute inset-0 flex items-center justify-center project-img">
+                                <span class="font-mono text-secondary/30 text-7xl md:text-8xl font-bold">02</span>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex justify-between items-start mb-4 border-b border-borderSubtle pb-4">
+                                <p class="font-mono text-[10px] text-primary uppercase tracking-[0.25em]">Graphic Design</p>
+                                <p class="font-mono text-[10px] text-muted uppercase tracking-[0.25em]">Branding</p>
+                            </div>
+                            <h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-3 text-tertiary group-hover:translate-x-2 transition-transform duration-300">TIYENI APP</h3>
+                            <p class="text-muted font-mono text-xs md:text-sm leading-relaxed mb-6">
+                                Tiyeni is an Android-native transport booking platform designed to streamline local commuter travel through real-time ride scheduling, driver assignments, and automated notifications.
+                            </p>
+                            <span class="inline-flex items-center text-xs uppercase tracking-[0.2em] font-mono text-primary border-b border-primary pb-1">View Details</span>
+                        </div>
+                    </div>s
+                </article>
+
+                <!-- Project 03 -->
+                <article class="group block interactive-element reveal">
+                    <div class="border border-borderSubtle rounded-xl overflow-hidden transition-all duration-500 group-hover:border-primary/60 bg-surface/70">
+                        <div class="project-img-container aspect-[4/3] bg-gradient-to-bl from-background via-surface to-violet-accent/20 relative">
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-primary/20 rounded-full"></div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border border-primary/30 rounded-full"></div>
+                            <div class="absolute inset-0 flex items-center justify-center project-img">
+                                <span class="font-mono text-primary/30 text-7xl md:text-8xl font-bold">03</span>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <div class="flex justify-between items-start mb-4 border-b border-borderSubtle pb-4">
+                                <p class="font-mono text-[10px] text-primary uppercase tracking-[0.25em]">Machine Learning & Security</p>
+                                <p class="font-mono text-[10px] text-muted uppercase tracking-[0.25em]">Full-Stack App</p>
+                            </div>
+                            <h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-3 text-tertiary group-hover:translate-x-2 transition-transform duration-300">PHIShield</h3>
+                            <p class="text-muted font-mono text-xs md:text-sm leading-relaxed mb-6">
+                                A real-time ML web application utilizing Random Forest classification to identify malicious URL phishing attempts with high precision.
+                            </p>
+                            <span class="inline-flex items-center text-xs uppercase tracking-[0.2em] font-mono text-primary border-b border-primary pb-1">View Details</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 04 -->
+                <article class="group block interactive-element reveal md:mt-24">
+                    <div class="border border-borderSubtle border-dashed rounded-xl overflow-hidden transition-all duration-500 group-hover:border-primary/60 bg-surface/50 h-full flex flex-col justify-center">
+                        <div class="p-8 md:p-10 text-center flex-1 flex flex-col justify-center items-center">
+                            <div class="mb-6">
+                                <span class="inline-block w-3 h-3 bg-primary rounded-full animate-ping"></span>
+                            </div>
+                            <p class="font-mono text-[10px] text-primary uppercase tracking-[0.25em] mb-2">Active Engineering</p>
+                            <h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-4 text-tertiary">Chichewa AI Assistant</h3>
+                            <p class="text-muted font-mono text-xs md:text-sm leading-relaxed max-w-sm border border-borderSubtle/80 rounded-lg p-4 bg-surface/90">
+                                Multimodal desktop automation assistant integrating computer vision hand gestures with native Chichewa voice recognition.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-28 reveal">
+            <div class="border border-borderSubtle rounded-2xl bg-surface/80 p-8 md:p-14 backdrop-blur-md">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-10">
+                    <div class="md:max-w-sm">
+                        <p class="font-mono text-xs uppercase tracking-[0.3em] text-primary mb-3"> Get In Touch</p>
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-4 text-tertiary">Let's Connect.</h2>
+                        <p class="font-mono text-secondary text-xs md:text-sm uppercase tracking-widest">Open for project collaborations & technical roles.</p>
+                    </div>
+
+                    <div class="w-full md:max-w-xl">
+                        <form id="contact-form" class="grid gap-5">
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <label class="contact-field grid gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                                    Name
+                                    <input name="name" type="text" autocomplete="name" maxlength="120" required class="w-full rounded border border-borderSubtle bg-background/70 px-4 py-3 font-sans text-sm normal-case tracking-normal text-tertiary placeholder:text-muted/60 focus:border-primary focus:outline-none">
+                                </label>
+                                <label class="contact-field grid gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                                    Email
+                                    <input name="email" type="email" autocomplete="email" maxlength="254" required class="w-full rounded border border-borderSubtle bg-background/70 px-4 py-3 font-sans text-sm normal-case tracking-normal text-tertiary placeholder:text-muted/60 focus:border-primary focus:outline-none">
+                                </label>
+                            </div>
+                            <label class="contact-field grid gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                                Message
+                                <textarea name="message" rows="5" maxlength="5000" required class="w-full resize-y rounded border border-borderSubtle bg-background/70 px-4 py-3 font-sans text-sm normal-case tracking-normal text-tertiary placeholder:text-muted/60 focus:border-primary focus:outline-none"></textarea>
+                            </label>
+                            <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                                <button type="submit" class="interactive-element inline-flex items-center border border-primary bg-primary px-6 py-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-background transition-colors hover:bg-transparent hover:text-primary disabled:cursor-wait disabled:opacity-60">
+                                    Send message
+                                </button>
+                                <p id="contact-status" class="font-mono text-xs text-secondary" role="status" aria-live="polite"></p>
+                            </div>
+                        </form>
+
+                        <div class="mt-8 flex flex-wrap gap-x-8 gap-y-4 border-t border-borderSubtle pt-5">
+                            <a href="mailto:nathanemmanuelnice@gmail.com" class="font-mono text-xs uppercase tracking-widest text-tertiary hover:text-primary transition-colors interactive-element">
+                                Email
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="font-mono text-xs uppercase tracking-widest text-tertiary hover:text-primary transition-colors interactive-element">
+                                LinkedIn
+                            </a>
+                            <a href="https://github.com" target="_blank" rel="noreferrer" class="font-mono text-xs uppercase tracking-widest text-tertiary hover:text-primary transition-colors interactive-element">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 border-t border-borderSubtle">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-muted font-mono text-xs uppercase gap-4">
+                <p>&copy; 2026 Emmanuel Nice. All rights reserved.</p>
+                <p>Designed & Developed with Precision</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.getElementById('custom-cursor');
+            const interactiveElements = document.querySelectorAll('.interactive-element, a, button');
+            const prefersFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+            if (!prefersFinePointer) {
+                if (cursor) cursor.style.display = 'none';
+            } else {
+                document.addEventListener('mousemove', (event) => {
+                    if (cursor) {
+                        cursor.style.transform = `translate(calc(${event.clientX}px - 50%), calc(${event.clientY}px - 50%))`;
+                    }
+                });
+
+                interactiveElements.forEach(element => {
+                    element.addEventListener('mouseenter', () => cursor && cursor.classList.add('hovered'));
+                    element.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hovered'));
+                });
+            }
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            revealElements.forEach(element => revealObserver.observe(element));
+
+            const contactForm = document.getElementById('contact-form');
+            const contactStatus = document.getElementById('contact-status');
+
+            contactForm?.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const formData = new FormData(contactForm);
+                const buttonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                contactStatus.textContent = '';
+                contactStatus.classList.remove('text-accent');
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.fromEntries(formData)),
+                    });
+                    const responseBody = await response.text();
+                    let result = {};
+
+                    if (responseBody.trim()) {
+                        try {
+                            result = JSON.parse(responseBody);
+                        } catch {
+                            throw new Error(`Backend returned an invalid response (HTTP ${response.status}). Run server.py and open http://127.0.0.1:8000.`);
+                        }
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(result.error || `Request failed (HTTP ${response.status}). Run server.py and open http://127.0.0.1:8000.`);
+                    }
+
+                    if (typeof result.message !== 'string' || !result.message) {
+                        throw new Error('The backend returned an empty response. Run server.py and open http://127.0.0.1:8000.');
+                    }
+
+                    contactForm.reset();
+                    contactStatus.textContent = result.message;
+                } catch (error) {
+                    contactStatus.textContent = error instanceof TypeError
+                        ? 'Could not reach the server. Please try again later.'
+                        : error.message;
+                    contactStatus.classList.add('text-accent');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = buttonText;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
